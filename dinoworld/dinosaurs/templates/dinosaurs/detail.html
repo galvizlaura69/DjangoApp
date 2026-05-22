@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
@@ -32,7 +32,9 @@
             color: white;
         }
 
-        /* Barras laterales */
+        /* =========================
+           BARRAS LATERALES
+        ========================== */
 
         body::before,
         body::after {
@@ -62,28 +64,136 @@
         body::before {
 
             left: 0;
-
-            border-right: 3px solid #66fcf1;
-
-            box-shadow: 0px 0px 20px #66fcf1;
         }
 
         body::after {
 
             right: 0;
-
-            border-left: 3px solid #66fcf1;
-
-            box-shadow: 0px 0px 20px #66fcf1;
         }
+
+        /* =========================
+           COLORES CARNÍVOROS
+        ========================== */
+
+        .carnivoro {
+
+            color: #ff4d4d;
+        }
+
+        .carnivoro-border {
+
+            border-color: #ff4d4d !important;
+        }
+
+        .carnivoro-shadow {
+
+            box-shadow: 0px 0px 20px #ff4d4d !important;
+        }
+
+        .carnivoro-bg {
+
+            background: linear-gradient(
+                to bottom,
+                #7a1f1f,
+                #2b0000
+            );
+        }
+
+        .carnivoro-button {
+
+            background-color: #ff4d4d;
+
+            color: black;
+        }
+
+        /* =========================
+           COLORES HERBÍVOROS
+        ========================== */
+
+        .herbivoro {
+
+            color: #57ff6b;
+        }
+
+        .herbivoro-border {
+
+            border-color: #57ff6b !important;
+        }
+
+        .herbivoro-shadow {
+
+            box-shadow: 0px 0px 20px #57ff6b !important;
+        }
+
+        .herbivoro-bg {
+
+            background: linear-gradient(
+                to bottom,
+                #1f7a35,
+                #0b2d12
+            );
+        }
+
+        .herbivoro-button {
+
+            background-color: #57ff6b;
+
+            color: black;
+        }
+
+        /* =========================
+           COLORES VOLADORES
+        ========================== */
+
+        .volador {
+
+            color: #66fcf1;
+        }
+
+        .volador-border {
+
+            border-color: #66fcf1 !important;
+        }
+
+        .volador-shadow {
+
+            box-shadow: 0px 0px 20px #66fcf1 !important;
+        }
+
+        .volador-bg {
+
+            background: linear-gradient(
+                to bottom,
+                #2b5876,
+                #1b2838
+            );
+        }
+
+        .volador-button {
+
+            background-color: #66fcf1;
+
+            color: black;
+        }
+
+        /* =========================
+           CONTENEDOR
+        ========================== */
 
         .container {
 
             position: relative;
+
             z-index: 1;
+
+            padding-left: 170px;
+
+            padding-right: 170px;
         }
 
-        /* CARD PRINCIPAL */
+        /* =========================
+           CARD PRINCIPAL
+        ========================== */
 
         .pokemon-card{
 
@@ -95,16 +205,6 @@
 
             overflow: hidden;
 
-            background: linear-gradient(
-                to bottom,
-                #2b5876,
-                #4e4376
-            );
-
-            border: 2px solid #66fcf1;
-
-            box-shadow: 0px 0px 25px #66fcf1;
-
             display: flex;
 
             align-items: center;
@@ -112,9 +212,13 @@
             gap: 35px;
 
             padding: 30px;
+
+            border: 2px solid white;
         }
 
-        /* CONTENEDOR IMAGEN */
+        /* =========================
+           IMAGEN
+        ========================== */
 
         .image-container{
 
@@ -126,8 +230,6 @@
 
             align-items: center;
         }
-
-        /* IMAGEN */
 
         .pokemon-image{
 
@@ -141,12 +243,12 @@
 
             border-radius: 25px;
 
-            border: 3px solid #66fcf1;
-
-            box-shadow: 0px 0px 15px #66fcf1;
+            border: 3px solid white;
         }
 
-        /* INFORMACIÓN */
+        /* =========================
+           INFORMACIÓN
+        ========================== */
 
         .info-container{
 
@@ -160,15 +262,9 @@
             font-weight: bold;
 
             margin-bottom: 20px;
-
-            text-shadow: 0px 0px 10px #66fcf1;
         }
 
         .type-badge{
-
-            background-color: #66fcf1;
-
-            color: black;
 
             padding: 10px 25px;
 
@@ -208,9 +304,22 @@
             font-size: 1.2rem;
 
             border-radius: 15px;
+
+            border: none;
+
+            font-weight: bold;
         }
 
-        /* Responsive */
+        .vote-button:hover{
+
+            background-color: white !important;
+
+            color: black !important;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
 
         @media (max-width: 900px){
 
@@ -229,6 +338,13 @@
 
                 display: none;
             }
+
+            .container {
+
+                padding-left: 20px;
+
+                padding-right: 20px;
+            }
         }
 
     </style>
@@ -238,37 +354,86 @@
 <body>
 
 <div class="container py-5">
-<!-- BOTÓN VOLVER -->
 
-<div
-    class="mb-4 d-flex justify-content-start"
-    style="margin-left:100px;"
->
-    <a
-        href="{% url 'dinosaurs:category' dinosaur.category.id %}"
-        class="btn btn-outline-light px-3 py-2"
-        style="
-            border-radius:15px;
-            font-size:1.2rem;
-            box-shadow:0px 0px 10px #66fcf1;
-        "
+    <!-- BOTÓN VOLVER -->
+
+    <div
+        class="mb-4 d-flex justify-content-start"
     >
-        ← 
-    </a>
-</div>
+
+        {% if dinosaur.category.name == "Carnívoros" %}
+
+            <a
+                href="{% url 'dinosaurs:category' dinosaur.category.id %}"
+                class="btn btn-outline-light carnivoro-border carnivoro-shadow"
+            >
+                ←
+            </a>
+
+        {% elif dinosaur.category.name == "Herbívoros" %}
+
+            <a
+                href="{% url 'dinosaurs:category' dinosaur.category.id %}"
+                class="btn btn-outline-light herbivoro-border herbivoro-shadow"
+            >
+                ←
+            </a>
+
+        {% elif dinosaur.category.name == "Voladores" %}
+
+            <a
+                href="{% url 'dinosaurs:category' dinosaur.category.id %}"
+                class="btn btn-outline-light volador-border volador-shadow"
+            >
+                ←
+            </a>
+
+        {% endif %}
+
+    </div>
 
     <!-- CARD -->
 
-    <div class="pokemon-card">
+    {% if dinosaur.category.name == "Carnívoros" %}
+
+        <div class="pokemon-card carnivoro-bg carnivoro-border carnivoro-shadow">
+
+    {% elif dinosaur.category.name == "Herbívoros" %}
+
+        <div class="pokemon-card herbivoro-bg herbivoro-border herbivoro-shadow">
+
+    {% elif dinosaur.category.name == "Voladores" %}
+
+        <div class="pokemon-card volador-bg volador-border volador-shadow">
+
+    {% endif %}
 
         <!-- IMAGEN -->
 
         <div class="image-container">
 
-            <img
-                src="{{ dinosaur.image }}"
-                class="pokemon-image"
-            >
+            {% if dinosaur.category.name == "Carnívoros" %}
+
+                <img
+                    src="{{ dinosaur.image }}"
+                    class="pokemon-image carnivoro-border carnivoro-shadow"
+                >
+
+            {% elif dinosaur.category.name == "Herbívoros" %}
+
+                <img
+                    src="{{ dinosaur.image }}"
+                    class="pokemon-image herbivoro-border herbivoro-shadow"
+                >
+
+            {% elif dinosaur.category.name == "Voladores" %}
+
+                <img
+                    src="{{ dinosaur.image }}"
+                    class="pokemon-image volador-border volador-shadow"
+                >
+
+            {% endif %}
 
         </div>
 
@@ -276,13 +441,37 @@
 
         <div class="info-container">
 
-            <h1 class="dino-title">
-                {{ dinosaur.name }}
-            </h1>
+            {% if dinosaur.category.name == "Carnívoros" %}
 
-            <span class="type-badge">
-                {{ dinosaur.category.name }}
-            </span>
+                <h1 class="dino-title carnivoro">
+                    {{ dinosaur.name }}
+                </h1>
+
+                <span class="type-badge carnivoro-button">
+                    {{ dinosaur.category.name }}
+                </span>
+
+            {% elif dinosaur.category.name == "Herbívoros" %}
+
+                <h1 class="dino-title herbivoro">
+                    {{ dinosaur.name }}
+                </h1>
+
+                <span class="type-badge herbivoro-button">
+                    {{ dinosaur.category.name }}
+                </span>
+
+            {% elif dinosaur.category.name == "Voladores" %}
+
+                <h1 class="dino-title volador">
+                    {{ dinosaur.name }}
+                </h1>
+
+                <span class="type-badge volador-button">
+                    {{ dinosaur.category.name }}
+                </span>
+
+            {% endif %}
 
             <hr>
 
@@ -306,12 +495,34 @@
 
                 {% csrf_token %}
 
-                <button
-                    type="submit"
-                    class="btn btn-success w-100 vote-button"
-                >
-                    Favorito
-                </button>
+                {% if dinosaur.category.name == "Carnívoros" %}
+
+                    <button
+                        type="submit"
+                        class="btn vote-button carnivoro-button w-100"
+                    >
+                        Favorito
+                    </button>
+
+                {% elif dinosaur.category.name == "Herbívoros" %}
+
+                    <button
+                        type="submit"
+                        class="btn vote-button herbivoro-button w-100"
+                    >
+                        Favorito
+                    </button>
+
+                {% elif dinosaur.category.name == "Voladores" %}
+
+                    <button
+                        type="submit"
+                        class="btn vote-button volador-button w-100"
+                    >
+                        Favorito
+                    </button>
+
+                {% endif %}
 
             </form>
 
@@ -322,4 +533,5 @@
 </div>
 
 </body>
+
 </html>
