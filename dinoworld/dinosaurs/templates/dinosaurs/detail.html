@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>{{ dinosaur.name }}</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body{
+
+            background-image:
+            linear-gradient(
+                rgba(0,0,0,0.7),
+                rgba(0,0,0,0.8)
+            ),
+            url("https://wallpapercave.com/wp/wp2464222.jpg");
+
+            background-size: cover;
+
+            background-attachment: fixed;
+
+            min-height: 100vh;
+
+            color: white;
+        }
+
+        /* Barras laterales */
+
+        body::before,
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            top: 0;
+
+            width: 140px;
+
+            height: 100vh;
+
+            z-index: 0;
+
+            background-image:
+                url("https://i.pinimg.com/originals/fb/c8/c5/fbc8c52454ed82d15961252c31f9aad1.jpg");
+
+            background-repeat: repeat-y;
+
+            background-size: cover;
+
+            opacity: 0.95;
+        }
+
+        body::before {
+
+            left: 0;
+
+            border-right: 3px solid #66fcf1;
+
+            box-shadow: 0px 0px 20px #66fcf1;
+        }
+
+        body::after {
+
+            right: 0;
+
+            border-left: 3px solid #66fcf1;
+
+            box-shadow: 0px 0px 20px #66fcf1;
+        }
+
+        .container {
+
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CARD PRINCIPAL */
+
+        .pokemon-card{
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            background: linear-gradient(
+                to bottom,
+                #2b5876,
+                #4e4376
+            );
+
+            border: 2px solid #66fcf1;
+
+            box-shadow: 0px 0px 25px #66fcf1;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 35px;
+
+            padding: 30px;
+        }
+
+        /* CONTENEDOR IMAGEN */
+
+        .image-container{
+
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        /* IMAGEN */
+
+        .pokemon-image{
+
+            width: 100%;
+
+            max-width: 400px;
+
+            height: 550px;
+
+            object-fit: cover;
+
+            border-radius: 25px;
+
+            border: 3px solid #66fcf1;
+
+            box-shadow: 0px 0px 15px #66fcf1;
+        }
+
+        /* INFORMACIÓN */
+
+        .info-container{
+
+            flex: 1.2;
+        }
+
+        .dino-title{
+
+            font-size: 3rem;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+
+            text-shadow: 0px 0px 10px #66fcf1;
+        }
+
+        .type-badge{
+
+            background-color: #66fcf1;
+
+            color: black;
+
+            padding: 10px 25px;
+
+            border-radius: 20px;
+
+            display: inline-block;
+
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+        .description{
+
+            font-size: 1.1rem;
+
+            line-height: 1.8;
+
+            margin-top: 20px;
+        }
+
+        .votes{
+
+            font-size: 1.5rem;
+
+            margin-top: 25px;
+
+            font-weight: bold;
+        }
+
+        .vote-button{
+
+            margin-top: 30px;
+
+            padding: 15px;
+
+            font-size: 1.2rem;
+
+            border-radius: 15px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 900px){
+
+            .pokemon-card{
+
+                flex-direction: column;
+            }
+
+            .pokemon-image{
+
+                height: 380px;
+            }
+
+            body::before,
+            body::after {
+
+                display: none;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container py-5">
+<!-- BOTÓN VOLVER -->
+
+<div
+    class="mb-4 d-flex justify-content-start"
+    style="margin-left:100px;"
+>
+    <a
+        href="{% url 'dinosaurs:category' dinosaur.category.id %}"
+        class="btn btn-outline-light px-3 py-2"
+        style="
+            border-radius:15px;
+            font-size:1.2rem;
+            box-shadow:0px 0px 10px #66fcf1;
+        "
+    >
+        ← 
+    </a>
+</div>
+
+    <!-- CARD -->
+
+    <div class="pokemon-card">
+
+        <!-- IMAGEN -->
+
+        <div class="image-container">
+
+            <img
+                src="{{ dinosaur.image }}"
+                class="pokemon-image"
+            >
+
+        </div>
+
+        <!-- INFORMACIÓN -->
+
+        <div class="info-container">
+
+            <h1 class="dino-title">
+                {{ dinosaur.name }}
+            </h1>
+
+            <span class="type-badge">
+                {{ dinosaur.category.name }}
+            </span>
+
+            <hr>
+
+            <p class="description">
+                {{ dinosaur.description }}
+            </p>
+
+            <div class="votes">
+
+                Total Votos:
+                {{ dinosaur.votes }}
+
+            </div>
+
+            <!-- FORMULARIO -->
+
+            <form
+                action="{% url 'dinosaurs:vote' dinosaur.id %}"
+                method="post"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-success w-100 vote-button"
+                >
+                    Favorito
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
