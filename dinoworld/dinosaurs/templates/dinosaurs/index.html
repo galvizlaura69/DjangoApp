@@ -7,20 +7,14 @@
 
     <title>DinoWorld</title>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
         body {
 
             background-image:
-                linear-gradient(
-                    rgba(0, 0, 0, 0.7),
-                    rgba(0, 0, 0, 0.8)
-                ),
+                linear-gradient(rgba(0, 0, 0, 0.7),
+                    rgba(0, 0, 0, 0.8)),
                 url("https://wallpapercave.com/wp/wp2464222.jpg");
 
             background-size: cover;
@@ -133,11 +127,9 @@
 
             border: 2px solid #ff4d4d;
 
-            background: linear-gradient(
-                to bottom,
-                #7a1f1f,
-                #2b0000
-            );
+            background: linear-gradient(to bottom,
+                    #7a1f1f,
+                    #2b0000);
         }
 
         .carnivoro-card:hover {
@@ -169,11 +161,9 @@
 
             border: 2px solid #57ff6b;
 
-            background: linear-gradient(
-                to bottom,
-                #1f7a35,
-                #0b2d12
-            );
+            background: linear-gradient(to bottom,
+                    #1f7a35,
+                    #0b2d12);
         }
 
         .herbivoro-card:hover {
@@ -198,35 +188,67 @@
         }
 
         /* =========================================
-           VOLADORES
-        ========================================== */
+   VOLADORES (AHORA GRIS)
+========================================== */
 
         .volador-card {
 
-            border: 2px solid #66fcf1;
+            border: 2px solid #b0b0b0;
 
-            background: linear-gradient(
-                to bottom,
-                #2b5876,
-                #1b2838
-            );
+            background: linear-gradient(to bottom,
+                    #4a4a4a,
+                    #1f1f1f);
         }
 
         .volador-card:hover {
 
-            box-shadow: 0px 0px 20px #66fcf1;
+            box-shadow: 0px 0px 20px #b0b0b0;
         }
 
         .volador-title {
 
-            color: #66fcf1;
+            color: #b0b0b0;
 
-            text-shadow: 0px 0px 15px #66fcf1;
+            text-shadow: 0px 0px 15px #b0b0b0;
         }
 
         .volador-btn {
 
-            background-color: #66fcf1;
+            background-color: #b0b0b0;
+
+            color: black;
+
+            border: none;
+        }
+
+        /* =========================================
+   ACUATICOS
+========================================== */
+
+        .acuatico-card {
+
+            border: 2px solid #4da6ff;
+
+            background: linear-gradient(to bottom,
+                    #1f4e7a,
+                    #0b1f2d);
+        }
+
+        .acuatico-card:hover {
+
+            box-shadow: 0px 0px 20px #4da6ff;
+        }
+
+        .acuatico-title {
+
+            color: #4da6ff;
+
+            text-shadow: 0px 0px 15px #4da6ff;
+        }
+
+        .acuatico-btn {
+
+            background-color: #4da6ff;
 
             color: black;
 
@@ -311,33 +333,32 @@
                 font-size: 1rem;
             }
         }
-
     </style>
 
 </head>
 
 <body>
 
-<div class="container py-5">
+    <div class="container py-5">
 
-    <h1 class="title">
-        DinoWorld
-    </h1>
+        <h1 class="title">
+            DinoWorld
+        </h1>
 
-    <p class="subtitle">
-        Adéntrate en el fascinante universo prehistórico de DinoWorld y explora
-        las criaturas más asombrosas que dominaron la Tierra hace millones de años.
-    </p>
+        <p class="subtitle">
+            Adéntrate en el fascinante universo prehistórico de DinoWorld y explora
+            las criaturas más asombrosas que dominaron la Tierra hace millones de años.
+        </p>
 
-    <div class="row">
+        <div class="row">
 
-        {% for category in categories %}
+            {% for category in categories %}
 
-        <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
 
-            <!-- CARNIVOROS -->
+                <!-- CARNIVOROS -->
 
-            {% if category.name == "Carnívoros" %}
+                {% if category.name == "Carnívoros" %}
 
                 <div class="card category-card carnivoro-card h-100">
 
@@ -351,10 +372,7 @@
                             {{ category.name }}
                         </h2>
 
-                        <a
-                            href="{% url 'dinosaurs:category' category.id %}"
-                            class="btn custom-btn carnivoro-btn"
-                        >
+                        <a href="{% url 'dinosaurs:category' category.id %}" class="btn custom-btn carnivoro-btn">
                             Ver categoría
                         </a>
 
@@ -362,11 +380,11 @@
 
                 </div>
 
-            {% endif %}
+                {% endif %}
 
-            <!-- HERBIVOROS -->
+                <!-- HERBIVOROS -->
 
-            {% if category.name == "Herbívoros" %}
+                {% if category.name == "Herbívoros" %}
 
                 <div class="card category-card herbivoro-card h-100">
 
@@ -380,10 +398,7 @@
                             {{ category.name }}
                         </h2>
 
-                        <a
-                            href="{% url 'dinosaurs:category' category.id %}"
-                            class="btn custom-btn herbivoro-btn"
-                        >
+                        <a href="{% url 'dinosaurs:category' category.id %}" class="btn custom-btn herbivoro-btn">
                             Ver categoría
                         </a>
 
@@ -391,11 +406,11 @@
 
                 </div>
 
-            {% endif %}
+                {% endif %}
 
-            <!-- VOLADORES -->
+                <!-- VOLADORES -->
 
-            {% if category.name == "Voladores" %}
+                {% if category.name == "Voladores" %}
 
                 <div class="card category-card volador-card h-100">
 
@@ -409,10 +424,33 @@
                             {{ category.name }}
                         </h2>
 
-                        <a
-                            href="{% url 'dinosaurs:category' category.id %}"
-                            class="btn custom-btn volador-btn"
-                        >
+                        <a href="{% url 'dinosaurs:category' category.id %}" class="btn custom-btn volador-btn">
+                            Ver categoría
+                        </a>
+
+                    </div>
+
+                </div>
+                                {% endif %}
+
+
+                <!-- ACUATICOS -->
+
+                {% if category.name == "Acuáticos" %}
+
+                <div class="card category-card acuatico-card h-100">
+
+                    <div class="card-body">
+
+                        <div class="category-icon">
+                            🐊
+                        </div>
+
+                        <h2 class="mb-4 acuatico-title">
+                            {{ category.name }}
+                        </h2>
+
+                        <a href="{% url 'dinosaurs:category' category.id %}" class="btn custom-btn acuatico-btn">
                             Ver categoría
                         </a>
 
@@ -420,15 +458,16 @@
 
                 </div>
 
-            {% endif %}
+
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
 
         </div>
 
-        {% endfor %}
-
     </div>
-
-</div>
 
 </body>
 

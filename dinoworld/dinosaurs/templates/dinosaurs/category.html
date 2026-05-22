@@ -7,20 +7,14 @@
 
     <title>{{ category.name }}</title>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-
         body {
 
             background-image:
-                linear-gradient(
-                    rgba(0,0,0,0.7),
-                    rgba(0,0,0,0.8)
-                ),
+                linear-gradient(rgba(0, 0, 0, 0.7),
+                    rgba(0, 0, 0, 0.8)),
                 url("https://wallpapercave.com/wp/wp2464222.jpg");
 
             background-size: cover;
@@ -99,11 +93,9 @@
 
         .carnivoro-bg {
 
-            background: linear-gradient(
-                to bottom,
-                #7a1f1f,
-                #2b0000
-            );
+            background: linear-gradient(to bottom,
+                    #7a1f1f,
+                    #2b0000);
         }
 
         .carnivoro-button {
@@ -132,11 +124,9 @@
 
         .herbivoro-bg {
 
-            background: linear-gradient(
-                to bottom,
-                #1f7a35,
-                #0b2d12
-            );
+            background: linear-gradient(to bottom,
+                    #1f7a35,
+                    #0b2d12);
         }
 
         .herbivoro-button {
@@ -147,34 +137,68 @@
         }
 
         /* COLORES VOLADORES */
+        /* =========================
+   COLORES VOLADORES (GRIS)
+========================== */
 
         .volador {
 
-            color: #66fcf1;
+            color: #b0b0b0;
         }
 
         .volador-border {
 
-            border-color: #66fcf1 !important;
+            border-color: #b0b0b0 !important;
         }
 
         .volador-shadow {
 
-            box-shadow: 0px 0px 20px #66fcf1 !important;
+            box-shadow: 0px 0px 20px #b0b0b0 !important;
         }
 
         .volador-bg {
 
-            background: linear-gradient(
-                to bottom,
-                #2b5876,
-                #1b2838
-            );
+            background: linear-gradient(to bottom,
+                    #4a4a4a,
+                    #1f1f1f);
         }
 
         .volador-button {
 
-            background-color: #66fcf1;
+            background-color: #b0b0b0;
+
+            color: black;
+        }
+
+        /* =========================
+   COLORES ACUÁTICOS
+========================== */
+
+        .acuatico {
+
+            color: #4da6ff;
+        }
+
+        .acuatico-border {
+
+            border-color: #4da6ff !important;
+        }
+
+        .acuatico-shadow {
+
+            box-shadow: 0px 0px 20px #4da6ff !important;
+        }
+
+        .acuatico-bg {
+
+            background: linear-gradient(to bottom,
+                    #1f4e7a,
+                    #0b1f2d);
+        }
+
+        .acuatico-button {
+
+            background-color: #4da6ff;
 
             color: black;
         }
@@ -201,11 +225,23 @@
 
         /* IMAGEN */
 
+        /* IMAGEN */
+
         .dino-image {
+
+            width: 100%;
 
             height: 320px;
 
-            object-fit: cover;
+            object-fit: contain;
+
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.4),
+                    rgba(0, 0, 0, 0.4));
+
+            padding: 15px;
+
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         /* TITULO */
@@ -276,176 +312,185 @@
                 font-size: 2.5rem;
             }
         }
-
     </style>
 
 </head>
 
 <body>
 
-<div class="container py-5">
+    <div class="container py-5">
 
-    <!-- BOTON VOLVER -->
+        <!-- BOTON VOLVER -->
 
-    <div class="mb-4">
+        <div class="mb-4">
 
-        {% if category.name == "Carnívoros" %}
+            {% if category.name == "Carnívoros" %}
 
-            <a
-                href="/"
-                class="btn btn-outline-light carnivoro-border carnivoro-shadow"
-            >
+            <a href="/" class="btn btn-outline-light carnivoro-border carnivoro-shadow">
                 ←
             </a>
 
-        {% elif category.name == "Herbívoros" %}
+            {% elif category.name == "Herbívoros" %}
 
-            <a
-                href="/"
-                class="btn btn-outline-light herbivoro-border herbivoro-shadow"
-            >
+            <a href="/" class="btn btn-outline-light herbivoro-border herbivoro-shadow">
                 ←
             </a>
 
-        {% elif category.name == "Voladores" %}
+            {% elif category.name == "Voladores" %}
 
-            <a
-                href="/"
-                class="btn btn-outline-light volador-border volador-shadow"
-            >
+            <a href="/" class="btn btn-outline-light volador-border volador-shadow">
                 ←
             </a>
 
-        {% endif %}
 
-    </div>
+            {% elif category.name == "Acuáticos" %}
 
-    <!-- TITULO -->
+            <a href="/" class="btn btn-outline-light acuatico-border acuatico-shadow">
+                ←
+            </a>
 
-    <div class="text-center mb-5">
+            {% endif %}
 
-        {% if category.name == "Carnívoros" %}
+        </div>
+
+        <!-- TITULO -->
+
+        <div class="text-center mb-5">
+
+            {% if category.name == "Carnívoros" %}
 
             <h1 class="title carnivoro">
                 {{ category.name }}
             </h1>
 
-        {% elif category.name == "Herbívoros" %}
+            {% elif category.name == "Herbívoros" %}
 
             <h1 class="title herbivoro">
                 {{ category.name }}
             </h1>
 
-        {% elif category.name == "Voladores" %}
+            {% elif category.name == "Voladores" %}
 
             <h1 class="title volador">
                 {{ category.name }}
             </h1>
 
-        {% endif %}
 
-        <!-- SUBTITULOS -->
+            {% elif category.name == "Acuáticos" %}
 
-        {% if category.name == "Carnívoros" %}
+            <h1 class="title acuatico">
+                {{ category.name }}
+            </h1>
+
+            {% endif %}
+
+            <!-- SUBTITULOS -->
+
+            {% if category.name == "Carnívoros" %}
 
             <p class="subtitle">
                 Descubre los depredadores más peligrosos del mundo prehistórico.
             </p>
 
-        {% elif category.name == "Herbívoros" %}
+            {% elif category.name == "Herbívoros" %}
 
             <p class="subtitle">
                 Explora los gigantes pacíficos que sobrevivían de plantas.
             </p>
 
-        {% elif category.name == "Voladores" %}
+            {% elif category.name == "Voladores" %}
 
             <p class="subtitle">
                 Conoce los reptiles voladores que dominaron los cielos.
             </p>
 
-        {% endif %}
-
-    </div>
-
-    <!-- DINOSAURIOS -->
-
-    <div class="row justify-content-center">
-
-        {% for dinosaur in category.dinosaur_set.all %}
-
-        <div class="col-lg-4 col-md-6 mb-4">
-
-            {% if category.name == "Carnívoros" %}
-
-                <div class="card dino-card carnivoro-bg carnivoro-border carnivoro-shadow h-100">
-
-            {% elif category.name == "Herbívoros" %}
-
-                <div class="card dino-card herbivoro-bg herbivoro-border herbivoro-shadow h-100">
-
-            {% elif category.name == "Voladores" %}
-
-                <div class="card dino-card volador-bg volador-border volador-shadow h-100">
+            {% elif category.name == "Acuáticos" %}
+            <p class="subtitle">
+                Conoce los reptiles voladores que dominaron los cielos.
+            </p>
 
             {% endif %}
 
-                    <img
-                        src="{{ dinosaur.image }}"
-                        class="card-img-top dino-image"
-                    >
+        </div>
 
-                    <div class="card-body text-center">
+        <!-- DINOSAURIOS -->
 
-                        <h3>
-                            {{ dinosaur.name }}
-                        </h3>
+        <div class="row justify-content-center">
 
-                        <p>
-                            Votes:
-                            {{ dinosaur.votes }}
-                        </p>
+            {% for dinosaur in category.dinosaur_set.all %}
 
-                        {% if category.name == "Carnívoros" %}
+            <div class="col-lg-4 col-md-6 mb-4">
 
-                            <a
-                                href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                class="btn btn-custom carnivoro-button"
-                            >
-                                Ver detalle
-                            </a>
+                {% if category.name == "Carnívoros" %}
 
-                        {% elif category.name == "Herbívoros" %}
+                <div class="card dino-card carnivoro-bg carnivoro-border carnivoro-shadow h-100">
 
-                            <a
-                                href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                class="btn btn-custom herbivoro-button"
-                            >
-                                Ver detalle
-                            </a>
+                    {% elif category.name == "Herbívoros" %}
+
+                    <div class="card dino-card herbivoro-bg herbivoro-border herbivoro-shadow h-100">
 
                         {% elif category.name == "Voladores" %}
 
-                            <a
-                                href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                class="btn btn-custom volador-button"
-                            >
-                                Ver detalle
-                            </a>
+                        <div class="card dino-card volador-bg volador-border volador-shadow h-100">
+                            {% elif category.name == "Acuáticos" %}
+                            <div class="card dino-card acuatico-bg acuatico-border acuatico-shadow h-100">
 
-                        {% endif %}
+
+                                {% endif %}
+
+                                <img src="{{ dinosaur.image }}" class="card-img-top dino-image">
+
+                                <div class="card-body text-center">
+
+                                    <h3>
+                                        {{ dinosaur.name }}
+                                    </h3>
+
+                                    <p>
+                                        Votes:
+                                        {{ dinosaur.votes }}
+                                    </p>
+
+                                    {% if category.name == "Carnívoros" %}
+
+                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
+                                        class="btn btn-custom carnivoro-button">
+                                        Ver detalle
+                                    </a>
+
+                                    {% elif category.name == "Herbívoros" %}
+
+                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
+                                        class="btn btn-custom herbivoro-button">
+                                        Ver detalle
+                                    </a>
+
+                                    {% elif category.name == "Voladores" %}
+
+                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
+                                        class="btn btn-custom volador-button">
+                                        Ver detalle
+                                    </a>
+                                        {% elif category.name == "Acuáticos" %}
+
+                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
+                                        class="btn btn-custom acuatico-button">
+                                        Ver detalle
+                                    </a>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% endfor %}
 
                     </div>
 
                 </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-</div>
 
 </body>
 
