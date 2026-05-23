@@ -24,8 +24,6 @@
             color: white;
         }
 
-        /* BARRAS LATERALES */
-
         body::before,
         body::after {
 
@@ -61,8 +59,6 @@
             right: 0;
         }
 
-        /* CONTENIDO */
-
         .container {
 
             position: relative;
@@ -73,8 +69,6 @@
 
             padding-right: 170px;
         }
-
-        /* COLORES CARNIVOROS */
 
         .carnivoro {
 
@@ -105,8 +99,6 @@
             color: black;
         }
 
-        /* COLORES HERBIVOROS */
-
         .herbivoro {
 
             color: #57ff6b;
@@ -135,11 +127,6 @@
 
             color: black;
         }
-
-        /* COLORES VOLADORES */
-        /* =========================
-   COLORES VOLADORES (GRIS)
-========================== */
 
         .volador {
 
@@ -170,10 +157,6 @@
             color: black;
         }
 
-        /* =========================
-   COLORES ACUÁTICOS
-========================== */
-
         .acuatico {
 
             color: #4da6ff;
@@ -203,8 +186,6 @@
             color: black;
         }
 
-        /* CARD */
-
         .dino-card {
 
             border-radius: 25px;
@@ -223,10 +204,6 @@
             transform: translateY(-10px);
         }
 
-        /* IMAGEN */
-
-        /* IMAGEN */
-
         .dino-image {
 
             width: 100%;
@@ -244,8 +221,6 @@
             border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* TITULO */
-
         .title {
 
             font-size: 4rem;
@@ -257,8 +232,6 @@
             margin-bottom: 20px;
         }
 
-        /* SUBTITULO */
-
         .subtitle {
 
             text-align: center;
@@ -269,8 +242,6 @@
 
             color: #dfe6e9;
         }
-
-        /* BOTONES */
 
         .btn-custom {
 
@@ -290,7 +261,19 @@
             color: black !important;
         }
 
-        /* RESPONSIVE */
+        label {
+            color: white;
+        }
+
+        input,
+        textarea {
+
+            background-color: rgba(255, 255, 255, 0.1) !important;
+
+            color: white !important;
+
+            border: 1px solid white !important;
+        }
 
         @media (max-width: 768px) {
 
@@ -324,32 +307,9 @@
 
         <div class="mb-4">
 
-            {% if category.name == "Carnívoros" %}
-
-            <a href="/" class="btn btn-outline-light carnivoro-border carnivoro-shadow">
+            <a href="/" class="btn btn-outline-light">
                 ←
             </a>
-
-            {% elif category.name == "Herbívoros" %}
-
-            <a href="/" class="btn btn-outline-light herbivoro-border herbivoro-shadow">
-                ←
-            </a>
-
-            {% elif category.name == "Voladores" %}
-
-            <a href="/" class="btn btn-outline-light volador-border volador-shadow">
-                ←
-            </a>
-
-
-            {% elif category.name == "Acuáticos" %}
-
-            <a href="/" class="btn btn-outline-light acuatico-border acuatico-shadow">
-                ←
-            </a>
-
-            {% endif %}
 
         </div>
 
@@ -375,7 +335,6 @@
                 {{ category.name }}
             </h1>
 
-
             {% elif category.name == "Acuáticos" %}
 
             <h1 class="title acuatico">
@@ -384,32 +343,73 @@
 
             {% endif %}
 
-            <!-- SUBTITULOS -->
+        </div>
+
+        <!-- BOTÓN CREAR -->
+
+        <div class="text-center mb-5">
 
             {% if category.name == "Carnívoros" %}
 
-            <p class="subtitle">
-                Descubre los depredadores más peligrosos del mundo prehistórico.
-            </p>
+            <button class="btn btn-lg carnivoro-button" onclick="mostrarFormularioCrear()">
+                ➕ Crear Dinosaurio
+            </button>
 
             {% elif category.name == "Herbívoros" %}
 
-            <p class="subtitle">
-                Explora los gigantes pacíficos que sobrevivían de plantas.
-            </p>
+            <button class="btn btn-lg herbivoro-button" onclick="mostrarFormularioCrear()">
+                ➕ Crear Dinosaurio
+            </button>
 
             {% elif category.name == "Voladores" %}
 
-            <p class="subtitle">
-                Conoce los reptiles voladores que dominaron los cielos.
-            </p>
+            <button class="btn btn-lg volador-button" onclick="mostrarFormularioCrear()">
+                ➕ Crear Dinosaurio
+            </button>
 
             {% elif category.name == "Acuáticos" %}
-            <p class="subtitle">
-                Conoce los reptiles voladores que dominaron los cielos.
-            </p>
+
+            <button class="btn btn-lg acuatico-button" onclick="mostrarFormularioCrear()">
+                ➕ Crear Dinosaurio
+            </button>
 
             {% endif %}
+
+        </div>
+
+        <!-- FORMULARIO CREAR -->
+
+        <div id="createForm" class="card p-4 mb-5" style="
+                display:none;
+                background: rgba(0,0,0,0.7);
+                border: 2px solid white;
+                border-radius:20px;
+            ">
+
+            <form method="post">
+
+                {% csrf_token %}
+                <label>Nombre de dinosaurio</label>
+                <input type="text" name="name" class="form-control mb-3" placeholder="Nombre del dinosaurio" required>
+                <label>Descripción</label>
+                <textarea name="description" class="form-control mb-3" rows="4" placeholder="Descripción"
+                    required></textarea>
+                <label>Imagen</label>
+                <input type="text" name="image" class="form-control mb-3" placeholder="URL de imagen" required>
+
+                <div class="d-flex gap-3">
+
+                    <button type="submit" class="btn btn-success w-50">
+                        Guardar
+                    </button>
+
+                    <button type="button" class="btn btn-secondary w-50" onclick="ocultarFormularioCrear()">
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 
@@ -432,9 +432,10 @@
                         {% elif category.name == "Voladores" %}
 
                         <div class="card dino-card volador-bg volador-border volador-shadow h-100">
-                            {% elif category.name == "Acuáticos" %}
-                            <div class="card dino-card acuatico-bg acuatico-border acuatico-shadow h-100">
 
+                            {% elif category.name == "Acuáticos" %}
+
+                            <div class="card dino-card acuatico-bg acuatico-border acuatico-shadow h-100">
 
                                 {% endif %}
 
@@ -451,34 +452,9 @@
                                         {{ dinosaur.votes }}
                                     </p>
 
-                                    {% if category.name == "Carnívoros" %}
-
-                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                        class="btn btn-custom carnivoro-button">
+                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}" class="btn btn-custom btn-light">
                                         Ver detalle
                                     </a>
-
-                                    {% elif category.name == "Herbívoros" %}
-
-                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                        class="btn btn-custom herbivoro-button">
-                                        Ver detalle
-                                    </a>
-
-                                    {% elif category.name == "Voladores" %}
-
-                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                        class="btn btn-custom volador-button">
-                                        Ver detalle
-                                    </a>
-                                        {% elif category.name == "Acuáticos" %}
-
-                                    <a href="{% url 'dinosaurs:detail' dinosaur.id %}"
-                                        class="btn btn-custom acuatico-button">
-                                        Ver detalle
-                                    </a>
-
-                                    {% endif %}
 
                                 </div>
 
@@ -491,6 +467,24 @@
                     </div>
 
                 </div>
+
+                <script>
+
+                    function mostrarFormularioCrear() {
+
+                        document.getElementById(
+                            "createForm"
+                        ).style.display = "block";
+                    }
+
+                    function ocultarFormularioCrear() {
+
+                        document.getElementById(
+                            "createForm"
+                        ).style.display = "none";
+                    }
+
+                </script>
 
 </body>
 

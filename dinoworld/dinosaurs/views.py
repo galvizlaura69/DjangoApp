@@ -40,7 +40,7 @@ class DinosaurCreateView(generic.CreateView):
 
     fields = ["name", "description", "image", "category"]
 
-    template_name = "dinosaurs/create.html"
+    template_name = "dinosaurs/category.html"
 
     success_url = reverse_lazy("dinosaurs:home")
 
