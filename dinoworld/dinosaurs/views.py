@@ -1,8 +1,8 @@
 from django.views import generic
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
 
 from .models import Category, Dinosaur
 
@@ -34,18 +34,86 @@ class DinosaurDetailView(generic.DetailView):
 
 
 # CREAR dinosaurio
-class DinosaurCreateView(generic.CreateView):
+def create_dinosaur(request, pk):
+
+    category = get_object_or_404(
+        Category,
+        pk=pk
+    )
+
+    if request.method == "POST":
+
+        Dinosaur.objects.create(
+            category=category,
+            name=request.POST["name"],
+            description=request.POST["description"],
+            image=request.POST["image"],
+            votes=0
+        )
+
+    return redirect(
+        "dinosaurs:category",
+        pk=category.pk
+    )
 
     model = Dinosaur
 
-    fields = ["name", "description", "image", "category"]
+    fields = ["name", "description", "image"]
 
     template_name = "dinosaurs/category.html"
 
-    success_url = reverse_lazy("dinosaurs:home")
+    def form_valid(self, form):
 
+        category = get_object_or_404(
+            Category,
+            pk=self.kwargs["pk"]
+        )
 
+        form.instance.category = category
 
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
+        context["category"] = get_object_or_404(
+            Category,
+            pk=self.kwargs["pk"]
+        )
+
+        return context
+
+    def get_success_url(self):
+
+        return reverse(
+            "dinosaurs:category",
+            kwargs={
+                "pk": self.object.category.pk
+            }
+        )
+
+    model = Dinosaur
+
+    fields = ["name", "description", "image"]
+
+    def form_valid(self, form):
+
+        category = get_object_or_404(
+            Category,
+            pk=self.kwargs["pk"]
+        )
+
+        form.instance.category = category
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+
+        return reverse(
+            "dinosaurs:category",
+            kwargs={"pk": self.object.category.id}
+        )
 # UPDATE
 class DinosaurUpdateView(generic.UpdateView):
 

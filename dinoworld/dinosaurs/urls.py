@@ -43,4 +43,9 @@ path(
     views.DinosaurDeleteView.as_view(),
     name="delete"
 ),
+path(
+    "create/<int:pk>/",
+    views.create_dinosaur,
+    name="create"
+),
 ]

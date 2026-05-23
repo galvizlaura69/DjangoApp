@@ -386,7 +386,7 @@
                 border-radius:20px;
             ">
 
-            <form method="post">
+         <form action="{% url 'dinosaurs:create' category.pk %}" method="post">
 
                 {% csrf_token %}
                 <label>Nombre de dinosaurio</label>
