@@ -1,5 +1,6 @@
 from django.urls import path
 
+
 from . import views
 
 
@@ -31,4 +32,15 @@ urlpatterns = [
         views.vote,
         name="vote"
     ),
+    path(
+    "update/<int:pk>/",
+    views.DinosaurUpdateView.as_view(),
+    name="update"
+),
+
+path(
+    "delete/<int:pk>/",
+    views.DinosaurDeleteView.as_view(),
+    name="delete"
+),
 ]

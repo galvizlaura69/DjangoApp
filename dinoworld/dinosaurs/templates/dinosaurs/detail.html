@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+
         body {
 
             background-image:
@@ -25,10 +26,6 @@
 
             color: white;
         }
-
-        /* =========================
-           BARRAS LATERALES
-        ========================== */
 
         body::before,
         body::after {
@@ -65,10 +62,6 @@
             right: 0;
         }
 
-        /* =========================
-           COLORES CARNÍVOROS
-        ========================== */
-
         .carnivoro {
 
             color: #ff4d4d;
@@ -98,76 +91,6 @@
             color: black;
         }
 
-        /* =========================
-           COLORES HERBÍVOROS
-        ========================== */
-
-        .herbivoro {
-
-            color: #57ff6b;
-        }
-
-        .herbivoro-border {
-
-            border-color: #57ff6b !important;
-        }
-
-        .herbivoro-shadow {
-
-            box-shadow: 0px 0px 20px #57ff6b !important;
-        }
-
-        .herbivoro-bg {
-
-            background: linear-gradient(to bottom,
-                    #1f7a35,
-                    #0b2d12);
-        }
-
-        .herbivoro-button {
-
-            background-color: #57ff6b;
-
-            color: black;
-        }
-
-        /* =========================
-           COLORES VOLADORES
-        ========================== */
-
-        .volador {
-
-            color: #66fcf1;
-        }
-
-        .volador-border {
-
-            border-color: #66fcf1 !important;
-        }
-
-        .volador-shadow {
-
-            box-shadow: 0px 0px 20px #66fcf1 !important;
-        }
-
-        .volador-bg {
-
-            background: linear-gradient(to bottom,
-                    #2b5876,
-                    #1b2838);
-        }
-
-        .volador-button {
-
-            background-color: #66fcf1;
-
-            color: black;
-        }
-
-        /* =========================
-           CONTENEDOR
-        ========================== */
-
         .container {
 
             position: relative;
@@ -178,10 +101,6 @@
 
             padding-right: 170px;
         }
-
-        /* =========================
-           CARD PRINCIPAL
-        ========================== */
 
         .pokemon-card {
 
@@ -203,10 +122,6 @@
 
             border: 2px solid white;
         }
-
-        /* =========================
-           IMAGEN
-        ========================== */
 
         .image-container {
 
@@ -234,22 +149,9 @@
             border: 3px solid white;
         }
 
-        /* =========================
-           INFORMACIÓN
-        ========================== */
-
         .info-container {
 
             flex: 1.2;
-        }
-
-        .dino-title {
-
-            font-size: 3rem;
-
-            font-weight: bold;
-
-            margin-bottom: 20px;
         }
 
         .type-badge {
@@ -263,15 +165,6 @@
             font-weight: bold;
 
             margin-bottom: 25px;
-        }
-
-        .description {
-
-            font-size: 1.1rem;
-
-            line-height: 1.8;
-
-            margin-top: 20px;
         }
 
         .votes {
@@ -305,9 +198,23 @@
             color: black !important;
         }
 
-        /* =========================
-           RESPONSIVE
-        ========================== */
+        input,
+        textarea {
+
+            background-color: rgba(255, 255, 255, 0.1) !important;
+
+            color: white !important;
+
+            border: 1px solid white !important;
+        }
+
+        input:disabled,
+        textarea:disabled {
+
+            opacity: 1;
+
+            cursor: default;
+        }
 
         @media (max-width: 900px) {
 
@@ -334,193 +241,346 @@
                 padding-right: 20px;
             }
         }
+
     </style>
 
 </head>
 
 <body>
 
+    <!-- MENSAJES -->
+
+    {% if messages %}
+
+    <div class="container mt-3">
+
+        {% for message in messages %}
+
+        <div class="alert alert-success alert-dismissible fade show">
+
+            {{ message }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
     <div class="container py-5">
 
         <!-- BOTÓN VOLVER -->
 
-        <div class="mb-4 d-flex justify-content-start">
+        <div class="mb-4">
 
-            {% if dinosaur.category.name == "Carnívoros" %}
-
-            <a href="{% url 'dinosaurs:category' dinosaur.category.id %}"
-                class="btn btn-outline-light carnivoro-border carnivoro-shadow">
+            <a
+                href="{% url 'dinosaurs:category' dinosaur.category.id %}"
+                class="btn btn-outline-light"
+            >
                 ←
             </a>
-
-            {% elif dinosaur.category.name == "Herbívoros" %}
-
-            <a href="{% url 'dinosaurs:category' dinosaur.category.id %}"
-                class="btn btn-outline-light herbivoro-border herbivoro-shadow">
-                ←
-            </a>
-
-            {% elif dinosaur.category.name == "Voladores" %}
-
-            <a href="{% url 'dinosaurs:category' dinosaur.category.id %}"
-                class="btn btn-outline-light volador-border volador-shadow">
-                ←
-            </a>
-
-            {% elif dinosaur.category.name == "Acuáticos" %}
-
-            <a href="{% url 'dinosaurs:category' dinosaur.category.id %}"
-                class="btn btn-outline-light acuatico-border acuatico-shadow">
-                ←
-            </a>
-
-            {% endif %}
 
         </div>
 
         <!-- CARD -->
 
-        {% if dinosaur.category.name == "Carnívoros" %}
-
         <div class="pokemon-card carnivoro-bg carnivoro-border carnivoro-shadow">
 
-            {% elif dinosaur.category.name == "Herbívoros" %}
+            <!-- IMAGEN -->
 
-            <div class="pokemon-card herbivoro-bg herbivoro-border herbivoro-shadow">
+            <div class="image-container">
 
-                {% elif dinosaur.category.name == "Voladores" %}
+                <img
+                    src="{{ dinosaur.image }}"
+                    class="pokemon-image carnivoro-border carnivoro-shadow"
+                >
 
-                <div class="pokemon-card volador-bg volador-border volador-shadow">
+            </div>
 
-                    {% elif dinosaur.category.name == "Acuáticos" %}
+            <!-- INFO -->
 
-                    <div class="pokemon-card volador-bg acuatico-border acuatico-shadow">
+            <div class="info-container">
 
-                        {% endif %}
+                <!-- FORM UPDATE -->
 
-                        <!-- IMAGEN -->
+                <form
+                    id="updateForm"
+                    action="{% url 'dinosaurs:update' dinosaur.id %}"
+                    method="post"
+                >
 
-                        <div class="image-container">
+                    {% csrf_token %}
 
-                            {% if dinosaur.category.name == "Carnívoros" %}
+                    <!-- NOMBRE -->
 
-                            <img src="{{ dinosaur.image }}" class="pokemon-image carnivoro-border carnivoro-shadow">
+                    <input
+                        type="text"
+                        name="name"
+                        value="{{ dinosaur.name }}"
+                        class="form-control mb-3"
+                        id="nameInput"
+                        disabled
+                    >
 
-                            {% elif dinosaur.category.name == "Herbívoros" %}
+                    <!-- CATEGORÍA -->
 
-                            <img src="{{ dinosaur.image }}" class="pokemon-image herbivoro-border herbivoro-shadow">
+                    <span class="type-badge carnivoro-button">
+                        {{ dinosaur.category.name }}
+                    </span>
 
-                            {% elif dinosaur.category.name == "Voladores" %}
+                    <hr>
 
-                            <img src="{{ dinosaur.image }}" class="pokemon-image volador-border volador-shadow">
+                    <!-- DESCRIPCIÓN -->
 
+                    <textarea
+                        name="description"
+                        class="form-control mb-3"
+                        rows="5"
+                        id="descriptionInput"
+                        disabled
+                    >{{ dinosaur.description }}</textarea>
 
-                            {% elif dinosaur.category.name == "Acuáticos" %}
+                    <!-- IMAGEN -->
 
-                            <img src="{{ dinosaur.image }}" class="pokemon-image acuatico-border acuatico-shadow">
+                    <input
+                        type="text"
+                        name="image"
+                        value="{{ dinosaur.image }}"
+                        class="form-control mb-3"
+                        id="imageInput"
+                        disabled
+                    >
 
-                            {% endif %}
+                    <!-- BOTONES EDICIÓN -->
 
-                        </div>
+                    <div
+                        id="editButtons"
+                        class="gap-3 mt-3"
+                        style="display:none;"
+                    >
 
-                        <!-- INFORMACIÓN -->
+                        <!-- GUARDAR -->
 
-                        <div class="info-container">
+                        <button
+                            type="submit"
+                            class="btn btn-success w-50"
+                        >
+                            Guardar Cambios
+                        </button>
 
-                            {% if dinosaur.category.name == "Carnívoros" %}
+                        <!-- CANCELAR -->
 
-                            <h1 class="dino-title carnivoro">
-                                {{ dinosaur.name }}
-                            </h1>
-
-                            <span class="type-badge carnivoro-button">
-                                {{ dinosaur.category.name }}
-                            </span>
-
-                            {% elif dinosaur.category.name == "Herbívoros" %}
-
-                            <h1 class="dino-title herbivoro">
-                                {{ dinosaur.name }}
-                            </h1>
-
-                            <span class="type-badge herbivoro-button">
-                                {{ dinosaur.category.name }}
-                            </span>
-
-                            {% elif dinosaur.category.name == "Voladores" %}
-
-                            <h1 class="dino-title volador">
-                                {{ dinosaur.name }}
-                            </h1>
-
-                            <span class="type-badge volador-button">
-                                {{ dinosaur.category.name }}
-                            </span>
-
-                            {% elif dinosaur.category.name == "Acuáticos" %}
-
-                            <h1 class="dino-title acuatico">
-                                {{ dinosaur.name }}
-                            </h1>
-
-                            <span class="type-badge acuatico-button">
-                                {{ dinosaur.category.name }}
-                            </span>
-
-                            {% endif %}
-
-                            <hr>
-
-                            <p class="description">
-                                {{ dinosaur.description }}
-                            </p>
-
-                            <div class="votes">
-
-                                Total Votos:
-                                {{ dinosaur.votes }}
-
-                            </div>
-
-                            <!-- FORMULARIO -->
-
-                            <form action="{% url 'dinosaurs:vote' dinosaur.id %}" method="post">
-
-                                {% csrf_token %}
-
-                                {% if dinosaur.category.name == "Carnívoros" %}
-
-                                <button type="submit" class="btn vote-button carnivoro-button w-100">
-                                    Favorito
-                                </button>
-
-                                {% elif dinosaur.category.name == "Herbívoros" %}
-
-                                <button type="submit" class="btn vote-button herbivoro-button w-100">
-                                    Favorito
-                                </button>
-
-                                {% elif dinosaur.category.name == "Voladores" %}
-
-                                <button type="submit" class="btn vote-button volador-button w-100">
-                                    Favorito
-                                </button>
-
-                                {% elif dinosaur.category.name == "Acuáticos" %}
-
-                                <button type="submit" class="btn vote-button acuatico-button w-100">
-                                    Favorito
-                                </button>
-
-                                {% endif %}
-
-                            </form>
-
-                        </div>
+                        <button
+                            type="button"
+                            class="btn btn-secondary w-50"
+                            onclick="cancelarEdicion()"
+                        >
+                            Cancelar
+                        </button>
 
                     </div>
 
+                </form>
+
+                <!-- VOTOS -->
+
+                <div class="votes">
+
+                    Total Votos:
+                    {{ dinosaur.votes }}
+
                 </div>
+
+                <!-- FAVORITO -->
+
+                <form
+                    action="{% url 'dinosaurs:vote' dinosaur.id %}"
+                    method="post"
+                >
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="btn vote-button carnivoro-button w-100"
+                    >
+                        Favorito
+                    </button>
+
+                </form>
+
+                <!-- CRUD -->
+
+                <div class="d-flex gap-3 mt-4">
+
+                    <!-- ACTUALIZAR -->
+
+                    <button
+                        type="button"
+                        id="updateButton"
+                        class="btn btn-warning w-50"
+                        onclick="activarEdicion()"
+                    >
+                        ✏️ Actualizar
+                    </button>
+
+                    <!-- ELIMINAR -->
+
+                    <form
+                        action="{% url 'dinosaurs:delete' dinosaur.id %}"
+                        method="post"
+                        class="w-50"
+                        onsubmit="return confirmarEliminar()"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger w-100"
+                        >
+                            🗑️ Eliminar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JS -->
+
+    <script>
+
+        // GUARDAR VALORES ORIGINALES
+
+        const originalName =
+            document.getElementById(
+                "nameInput"
+            ).value;
+
+        const originalDescription =
+            document.getElementById(
+                "descriptionInput"
+            ).value;
+
+        const originalImage =
+            document.getElementById(
+                "imageInput"
+            ).value;
+
+
+        function activarEdicion() {
+
+            // HABILITAR INPUTS
+
+            document.getElementById(
+                "nameInput"
+            ).disabled = false;
+
+            document.getElementById(
+                "descriptionInput"
+            ).disabled = false;
+
+            document.getElementById(
+                "imageInput"
+            ).disabled = false;
+
+            // MOSTRAR BOTONES
+
+            const editButtons =
+                document.getElementById(
+                    "editButtons"
+                );
+
+            editButtons.style.display =
+                "flex";
+
+            editButtons.classList.add(
+                "d-flex"
+            );
+
+            // OCULTAR ACTUALIZAR
+
+            document.getElementById(
+                "updateButton"
+            ).style.display = "none";
+        }
+
+
+        function cancelarEdicion() {
+
+            // RESTAURAR VALORES
+
+            document.getElementById(
+                "nameInput"
+            ).value = originalName;
+
+            document.getElementById(
+                "descriptionInput"
+            ).value = originalDescription;
+
+            document.getElementById(
+                "imageInput"
+            ).value = originalImage;
+
+            // DESHABILITAR INPUTS
+
+            document.getElementById(
+                "nameInput"
+            ).disabled = true;
+
+            document.getElementById(
+                "descriptionInput"
+            ).disabled = true;
+
+            document.getElementById(
+                "imageInput"
+            ).disabled = true;
+
+            // OCULTAR BOTONES
+
+            const editButtons =
+                document.getElementById(
+                    "editButtons"
+                );
+
+            editButtons.style.display =
+                "none";
+
+            editButtons.classList.remove(
+                "d-flex"
+            );
+
+            // MOSTRAR BOTÓN ACTUALIZAR
+
+            document.getElementById(
+                "updateButton"
+            ).style.display = "block";
+        }
+
+
+        function confirmarEliminar() {
+
+            return confirm(
+                "¿Seguro que deseas eliminar este dinosaurio?"
+            );
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
